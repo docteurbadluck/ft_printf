@@ -16,9 +16,42 @@ int		g_count;
 
 void	ft_manage_arg(char c, va_list args)
 {
-	if (c == 'd')
+	if (c == 'd' || c == 'i')
 	{
 		ft_putnbr(va_arg(args, int));
+	}
+	if (c == '%')
+	{
+		ft_putchar(c);
+	}
+	if (c == 'u')
+	{
+		ft_putnbr_u(va_arg(args, unsigned int));
+	}
+	if (c == 'c')
+	{
+		ft_putchar((char)va_arg(args, int));
+	}
+	if (c == 's')
+	{
+		ft_putstr(va_arg(args, char*));
+	}
+	if (c == 'x')
+	{
+		write(1,"0x", 2);
+		g_count +=2;
+		ft_putnbr_to_hex_min(va_arg(args, unsigned int));
+	}
+	if (c == 'X')
+	{
+		write(1,"0x", 2);
+		g_count +=2;
+		ft_putnbr_to_hex_maj(va_arg(args, unsigned int));
+	}
+
+	if (c == 'p')
+	{
+		ft_putptr(va_arg(args, unsigned long long));
 	}
 }
 
@@ -35,7 +68,6 @@ int	ft_printf(const char *text, ...)
 		if (text[i] != '%')
 		{
 			ft_putchar(text[i]);
-			g_count++;
 		}
 		else
 		{
@@ -44,46 +76,5 @@ int	ft_printf(const char *text, ...)
 		}
 		i++;
 	}
-}
-
-void	test_ft_putnbr_u()
-{
-
-    // Test case 1: Smallest possible unsigned integer
-    ft_putnbr_u(0);
-    write(1, "\n", 1);  // Output a newline
-    ft_putnbr_u(5);
-    write(1, "\n", 1);
-
-    // Test case 3: Two-digit unsigned integer
-    ft_putnbr_u(42);
-    write(1, "\n", 1);
-    // Test case 4: Three-digit unsigned integer
-    ft_putnbr_u(123);
-    write(1, "\n", 1);
-    // Test case 5: Larger unsigned integer
-    ft_putnbr_u(9876);
-    write(1, "\n", 1);
-    // Test case 6: Maximum value of unsigned int (32-bit)
-    ft_putnbr_u(4294967295);
-    write(1, "\n", 1);
-    // Test case 7: Random large unsigned integer
-    ft_putnbr_u(1234567890);
-    write(1, "\n", 1);
-
-    ft_putnbr_u(654321);
-    write(1, "\n", 1);
-
-	return;
-}
-
-
-
-int main()
-{
-	/*
-	 ft_printf("afsd %d %d", 151, 5 , 45 ,1, 5,4 ,0);
-	printf("g_count = %d", g_count);*/
-	test_ft_putnbr_u();
-	return 0;
+	return g_count;
 }

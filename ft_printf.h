@@ -14,18 +14,24 @@
 # define FT_PRINTF_H
 # include <stdarg.h>
 # include <unistd.h>
-# include <stdio.h>
 
 extern int		g_count;
 
 //ft_printf_utils
 void	ft_putnbr(int n);
 void	ft_putnbr_u(unsigned int n);
+size_t  ft_strlcpy(char *dst, const char *src, size_t dstsize);
+void    ft_putnbr_to_hex_maj(unsigned int n);
+void	ft_putnbr_to_hex_min(unsigned int n);
 
 //ft_printf_utils_2
 void	ft_putchar(char c);
 int		ft_strlen(const char *str);
 void	ft_putstr( char *s);
+void	ft_put_ptr(unsigned long long num);
+void    ft_putptr(unsigned long long ptr);
+
+
 
 //ft_printf.c
 void	ft_manage_arg(char c, va_list args);

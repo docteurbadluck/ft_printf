@@ -15,6 +15,7 @@
 void	ft_putchar(char c)
 {
 	write(1, &c, 1);
+	g_count++;
 }
 
 int	ft_strlen(const char *str)
@@ -29,13 +30,51 @@ int	ft_strlen(const char *str)
 	return (i);
 }
 
-void	ft_putstr( char *s)
+void	ft_putstr(char *s)
 {
 	int	size;
 
+
 	if (!s)
+	{
+		write(1,"(null)", 6);
+		g_count += 6;
 		return ;
+	}
 	size = ft_strlen(s);
 	write(1, s, size);
 	g_count += size;
+}
+
+
+void	ft_putptr(unsigned long long ptr)
+{
+	if (ptr == 0)
+	{
+		write(1, "(nil)", 5);
+		g_count += 5;
+	}
+	else 
+	{
+		write(1,"0x", 2);
+		g_count += 2;
+
+		ft_put_ptr(ptr);
+	}
+}
+
+void	ft_put_ptr(unsigned long long num)
+{
+	if (num >= 16)
+	{
+		ft_put_ptr(num / 16);
+		ft_put_ptr(num % 16);
+	}
+	else
+	{
+		if (num <= 9)
+			ft_putchar((num + '0'));
+		else
+			ft_putchar((num - 10 + 'a'));
+	}
 }

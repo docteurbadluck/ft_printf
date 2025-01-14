@@ -5,13 +5,22 @@ HEADER = ft_printf.h
 
 OBJ_FILES = $(SRC:.c=.o)
 
-NAME = printf
+NAME = ft_printf.a
 
 all: $(NAME)
 
 $(NAME): $(OBJ_FILES)
-	@echo "LINKING"
-	$(CC) $(CFLAGS) $(OBJ_FILES) $(HEADER) -o
+	ar rcs $@ $^
 
-$(BUILD_DIR)/%.o: $(SRC)
-	(CC) -I . -c $< -o $@
+%.o: %.c$
+	$(CC) $(CFLAGS) -I . -c $< -o $@
+
+clean: 
+	rm -f $(OBJ_FILES)
+
+fclean:clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY :all clean fclean re 

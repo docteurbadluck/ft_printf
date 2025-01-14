@@ -68,3 +68,59 @@ void	ft_putnbr_u(unsigned int n)
 		g_count++;
 	}
 }
+
+//coppy into another buffer, use the dstsize to don't overflow.
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+
+	i = 0;
+	if (dstsize == 0)
+		return (ft_strlen(src));
+	while (i < dstsize - 1 && src[i] != '\0')
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (ft_strlen(src));
+}
+
+void ft_putnbr_to_hex_maj(unsigned int n)
+{
+	char	str[17];
+	char	digit;
+
+	ft_strlcpy(str,"0123456789ABCDEF",17);
+	if (n > 15)
+	{
+		ft_putnbr_to_hex_maj(n/16);
+		ft_putnbr_to_hex_maj(n%16);
+	}
+	else
+	{
+		digit = str[n];
+		write(1, &digit, 1);
+		g_count++;
+	}
+}
+
+void ft_putnbr_to_hex_min(unsigned int n)
+{
+	char	str[17];
+	char	digit;
+
+	ft_strlcpy(str,"0123456789abcdef",17);
+	if (n > 15)
+	{
+		ft_putnbr_to_hex_min(n/16);
+		ft_putnbr_to_hex_min(n%16);
+	}
+	else
+	{
+		digit = str[n];
+		write(1, &digit, 1);
+		g_count++;
+	}
+}
+
